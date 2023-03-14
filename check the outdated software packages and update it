@@ -1,0 +1,20 @@
+#!/bin/bash 
+# This script checks for outdated software packages on a Linux system and automatically updates them. 
+# Update the package list 
+sudo apt-get update 
+# Check for any available upgrades 
+upgrades=$(apt-get -s upgrade | grep -c "^Inst") 
+if [ $upgrades -gt 0 ]; then 
+    # If upgrades are available, ask user if they want to install them 
+    echo "There are $upgrades upgrades available. Do you want to install them? (y/n)" 
+    read answer 
+    # If user answers yes, install the upgrades 
+    if [ "$answer" == "y" ]; then 
+        sudo apt-get upgrade -y 
+        echo "Software packages have been updated." 
+    else 
+        echo "Software packages have not been updated." 
+    fi 
+else 
+    echo "No software updates available." 
+fi
